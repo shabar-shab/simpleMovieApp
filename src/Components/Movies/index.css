@@ -1,9 +1,10 @@
 .container {
   padding: 10px;
+  margin-top: 2rem;
 }
 
-.movies {
+/* .movies {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-}
+} */

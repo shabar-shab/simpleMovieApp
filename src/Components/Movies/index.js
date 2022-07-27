@@ -1,6 +1,7 @@
 import React from "react";
 import MovieCard from "../MovieCard";
-import './index.css'
+import "./index.css";
+import Grid from "@mui/material/Grid";
 const IMAGES = process.env.PUBLIC_URL;
 
 // name, description, cast, similar movies, genre, language
@@ -52,17 +53,20 @@ const movies = [
     languages: ["English", "Hindi"],
     cast: ["Chris hemis worth", "shabir"],
     genre: "Comdey",
-  }
+  },
 ];
 
 function Movies() {
   return (
     <div className="container">
-        The Moive list 
       <div className="movies">
-        {movies.map((movie) => (
-          <MovieCard movie={movie} />
-        ))}
+        <Grid container spacing={3} justifyContent="center" display="flex">
+          {movies.map((movie) => (
+            <Grid item xs={12} sm={5} md={3} xl={2}>
+              <MovieCard movie={movie} />
+            </Grid>
+          ))}
+        </Grid>
       </div>
     </div>
   );

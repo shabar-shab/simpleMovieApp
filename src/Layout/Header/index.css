@@ -35,3 +35,9 @@ a.button.button-clear {
   margin: 0;
   padding: 0;
 }
+
+input.search-feild {
+  border: 2px solid white;
+  height: 1.5rem;
+  border-radius: 3px;
+}
