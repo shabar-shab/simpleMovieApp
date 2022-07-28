@@ -1,5 +1,5 @@
 import "./index.css";
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
@@ -11,16 +11,7 @@ function Header() {
   const [searchKeyword, setSearchKeyWord] = useState(
     queryParams.get("q") ?? ""
   );
-
-  useEffect(() => {
-    window.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        handleQuery();
-      }
-    });
-    // return window.removeEventListener("keypress");
-  });
-
+  
   const handleQuery = () => {
     const searchParams = new URLSearchParams();
     const nameParam = searchKeyword.trim();
@@ -29,6 +20,7 @@ function Header() {
       navigate(`../searchResults?${searchParams.toString()}`);
     }
   };
+
   return (
     <nav>
       <h1 className="brand">Simple Movie App</h1>

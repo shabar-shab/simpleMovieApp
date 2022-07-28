@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../Layout";
-import MovieCard from "../../Components/MovieCard";
 import { MOVIES } from "../../Utlis";
 import Movies from "../../Components/Movies";
 import { useLocation } from "react-router";
@@ -12,6 +11,8 @@ function SearchResults() {
     queryParams.get("q") ?? ""
   );
 
+  const updatUseEffect = queryParams.get("q")?? "";
+
   const [movies, setMovies] = useState(MOVIES);
   useEffect(() => {
     setSearchKeyWord(queryParams.get("q") ?? "");
@@ -19,24 +20,22 @@ function SearchResults() {
     if (preMovies) {
       setMovies(preMovies);
     }
-  }, [queryParams.get("q")]);
+  },[updatUseEffect]);
 
   const filteredMovies = movies.filter((movie) => {
-    if (
+    return (
       movie.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-      movie.genre.includes(searchKeyword)
-    ) {
-      console.log("found", movie);
-      return movie;
-    }
+      movie.genre.toLowerCase().includes(searchKeyword.toLowerCase())
+    );
   });
 
-  console.log("filterMovies", filteredMovies, movies);
-  console.log("searchKeyWord", searchKeyword);
   return (
     <Layout>
       Search Results
-      <Movies movies={filteredMovies} />
+      {filteredMovies && <Movies movies={filteredMovies} />}
+      {filteredMovies.length === 0 && (
+        <div>No Search Results Found</div>
+      )}
     </Layout>
   );
 }
