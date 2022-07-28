@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -24,6 +24,20 @@ const inputFields = {
 };
 
 function AddMovieModal({ isModalOpen, closeModal }) {
+  const [movieDetails, SetMovieDetails] = useState({
+    name: "",
+    cast: "",
+    genre: "",
+    language: "",
+    similarMovie: "",
+    desc: "",
+  });
+
+  const handleChange = (e, fieldName) => {
+    SetMovieDetails({ ...movieDetails, [fieldName]: e.target.value });
+  };
+
+  console.log('movie detials', movieDetails);
   return (
     <div>
       <Modal
@@ -41,6 +55,7 @@ function AddMovieModal({ isModalOpen, closeModal }) {
             label="Name of Movie"
             size="small"
             style={inputFields}
+            onChange={(e)=>handleChange(e, "name")}
           />
           <TextField
             variant="outlined"
@@ -48,7 +63,7 @@ function AddMovieModal({ isModalOpen, closeModal }) {
             size="small"
             placeholder="e.g Chris Hemsworth, Natalie Portman"
             style={inputFields}
-            multiline
+            onChange={(e)=>handleChange(e, "cast")}
           />
           <TextField
             variant="outlined"
@@ -57,7 +72,7 @@ function AddMovieModal({ isModalOpen, closeModal }) {
             style={inputFields}
             select
             // value={currency}
-            // onChange={handleChange}
+            onChange={(e)=>handleChange(e, "genre")}
           >
             {GENRES.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -72,7 +87,7 @@ function AddMovieModal({ isModalOpen, closeModal }) {
             style={inputFields}
             select
             // value={currency}
-            // onChange={handleChange}
+            onChange={(e)=>handleChange(e, "language")}
           >
             {LANGUAGES.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -86,6 +101,7 @@ function AddMovieModal({ isModalOpen, closeModal }) {
             size="small"
             placeholder="e.g God of Thunder, Doctor Strange"
             style={inputFields}
+            onChange={(e)=>handleChange(e, "similarMovie")}
           />
           <TextField
             variant="outlined"
@@ -94,8 +110,18 @@ function AddMovieModal({ isModalOpen, closeModal }) {
             style={inputFields}
             placeholder="Thor embarks on a journey unlike anything he's ever faced -- a quest for inner peace."
             multiline
+            onChange={(e)=>handleChange(e, "desc")}
           />
-          <Button varinat ="contained" style={{...inputFields, backgroundColor: "#032541d9",color:"#ffffff"}}>Submit</Button>
+          <Button
+            varinat="contained"
+            style={{
+              ...inputFields,
+              backgroundColor: "#032541d9",
+              color: "#ffffff",
+            }}
+          >
+            Submit
+          </Button>
         </Box>
       </Modal>
     </div>
