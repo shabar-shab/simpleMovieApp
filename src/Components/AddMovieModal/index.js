@@ -4,6 +4,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { TextField, MenuItem, Button } from "@mui/material";
 import { GENRES, LANGUAGES } from "../../Utlis";
+const IMAGES = process.env.PUBLIC_URL;
 
 const style = {
   position: "absolute",
@@ -23,7 +24,7 @@ const inputFields = {
   marginTop: "1rem",
 };
 
-function AddMovieModal({ isModalOpen, closeModal }) {
+function AddMovieModal({ isModalOpen, closeModal, addMovie, movies }) {
   const [movieDetails, SetMovieDetails] = useState({
     name: "",
     cast: "",
@@ -34,10 +35,14 @@ function AddMovieModal({ isModalOpen, closeModal }) {
   });
 
   const handleChange = (e, fieldName) => {
-    SetMovieDetails({ ...movieDetails, [fieldName]: e.target.value });
+    SetMovieDetails({
+      ...movieDetails,
+      [fieldName]: e.target.value,
+      img: `${IMAGES}/movieImages/thor.jpg`,
+    });
   };
 
-  console.log('movie detials', movieDetails);
+  console.log("movie detials", movieDetails);
   return (
     <div>
       <Modal
@@ -55,7 +60,7 @@ function AddMovieModal({ isModalOpen, closeModal }) {
             label="Name of Movie"
             size="small"
             style={inputFields}
-            onChange={(e)=>handleChange(e, "name")}
+            onChange={(e) => handleChange(e, "name")}
           />
           <TextField
             variant="outlined"
@@ -63,7 +68,7 @@ function AddMovieModal({ isModalOpen, closeModal }) {
             size="small"
             placeholder="e.g Chris Hemsworth, Natalie Portman"
             style={inputFields}
-            onChange={(e)=>handleChange(e, "cast")}
+            onChange={(e) => handleChange(e, "cast")}
           />
           <TextField
             variant="outlined"
@@ -72,7 +77,7 @@ function AddMovieModal({ isModalOpen, closeModal }) {
             style={inputFields}
             select
             // value={currency}
-            onChange={(e)=>handleChange(e, "genre")}
+            onChange={(e) => handleChange(e, "genre")}
           >
             {GENRES.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -87,7 +92,7 @@ function AddMovieModal({ isModalOpen, closeModal }) {
             style={inputFields}
             select
             // value={currency}
-            onChange={(e)=>handleChange(e, "language")}
+            onChange={(e) => handleChange(e, "language")}
           >
             {LANGUAGES.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -101,7 +106,7 @@ function AddMovieModal({ isModalOpen, closeModal }) {
             size="small"
             placeholder="e.g God of Thunder, Doctor Strange"
             style={inputFields}
-            onChange={(e)=>handleChange(e, "similarMovie")}
+            onChange={(e) => handleChange(e, "similarMovie")}
           />
           <TextField
             variant="outlined"
@@ -110,7 +115,7 @@ function AddMovieModal({ isModalOpen, closeModal }) {
             style={inputFields}
             placeholder="Thor embarks on a journey unlike anything he's ever faced -- a quest for inner peace."
             multiline
-            onChange={(e)=>handleChange(e, "desc")}
+            onChange={(e) => handleChange(e, "desc")}
           />
           <Button
             varinat="contained"
@@ -118,6 +123,15 @@ function AddMovieModal({ isModalOpen, closeModal }) {
               ...inputFields,
               backgroundColor: "#032541d9",
               color: "#ffffff",
+            }}
+            onClick={() => {
+              localStorage.setItem("moive", JSON.stringify(movieDetails));
+              addMovie(movieDetails);
+              localStorage.setItem(
+                "allMovies",
+                JSON.stringify([...movies, movieDetails]) // to persist data for page refresh
+              );
+              closeModal();
             }}
           >
             Submit
