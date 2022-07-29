@@ -37,6 +37,7 @@ export const MOVIES = [
     languages: "english",
     cast: ["Chris hemis worth", "shabir"],
     genre: "Comdey",
+    favourite: true,
   },
   {
     name: "Doctor Strange",
@@ -45,6 +46,7 @@ export const MOVIES = [
     languages: "english",
     cast: ["Chris hemis worth", "shabir"],
     genre: "Comdey",
+    favourite: false,
   },
   {
     name: "Captain America",
@@ -53,6 +55,7 @@ export const MOVIES = [
     languages: "english",
     cast: ["Chris hemis worth", "shabir"],
     genre: "Comdey",
+    favourite: true,
   },
   {
     name: "Iron Man",
@@ -61,6 +64,7 @@ export const MOVIES = [
     languages: "english",
     cast: ["Chris hemis worth", "shabir"],
     genre: "Comdey",
+    favourite: false,
   },
   {
     name: "Amazing Sipder Man",
@@ -69,6 +73,7 @@ export const MOVIES = [
     languages: "english",
     cast: ["Chris hemis worth", "shabir"],
     genre: "Comdey",
+    favourite: true,
   },
   {
     name: "Venom Carnage",
@@ -77,5 +82,24 @@ export const MOVIES = [
     languages: "english",
     cast: ["Chris hemis worth", "shabir"],
     genre: "Comdey",
+    favourite: false,
+  },
+  {
+    name: "Star Wars",
+    dec: "avengers Movies",
+    img: `${IMAGES}/movieImages/thor.jpg`,
+    languages: "english",
+    cast: ["Chris hemis worth", "shabir"],
+    genre: "Comdey",
+    favourite: true,
+  },
+  {
+    name: "La La Land",
+    dec: "avengers Movies",
+    img: `${IMAGES}/movieImages/thor.jpg`,
+    languages: "english",
+    cast: ["Chris hemis worth", "shabir"],
+    genre: "Romance",
+    favourite: true,
   },
 ];

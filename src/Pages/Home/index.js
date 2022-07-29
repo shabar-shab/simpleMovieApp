@@ -16,6 +16,13 @@ function Home() {
     setMovies([...movies, newMoive]);
   };
 
+  const toggleFavouriteMovie =(index, value)=>{
+    const updateMovie = [...movies]
+    updateMovie[index] ={...updateMovie[index], favourite: value};
+    setMovies([...updateMovie]);
+    localStorage.setItem('allMovies',JSON.stringify(updateMovie));  //  no needed simply to persist the data 
+  }
+
   useEffect(() => {
     // reterive data on page refresh
     const previousMovies = JSON.parse(localStorage.getItem("allMovies"));
@@ -25,7 +32,7 @@ function Home() {
   }, []);
   return (
     <Layout>
-      <Movies movies={movies} />
+      <Movies movies={movies}  toogleFavMovie ={toggleFavouriteMovie}/>
       <div className="add-button">
         <FloatingActionButton openModal={handleOpen} />
       </div>

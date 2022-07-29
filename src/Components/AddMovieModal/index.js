@@ -28,21 +28,39 @@ function AddMovieModal({ isModalOpen, closeModal, addMovie, movies }) {
   const [movieDetails, SetMovieDetails] = useState({
     name: "",
     cast: "",
-    genre: "",
-    language: "",
+    genre: "comdey",
+    language: "english",
     similarMovie: "",
     desc: "",
   });
+  const [error, setError] = useState("");
 
   const handleChange = (e, fieldName) => {
+    if(fieldName==='name' && e.target.value && error){
+      setError('');
+    }
     SetMovieDetails({
       ...movieDetails,
       [fieldName]: e.target.value,
       img: `${IMAGES}/movieImages/thor.jpg`,
+      favourite: false,
     });
   };
 
-  console.log("movie detials", movieDetails);
+  const handleSubmit = () => {
+    if (!movieDetails.name) {
+      setError("Name of Movie is requied");
+    } else {
+      localStorage.setItem("moive", JSON.stringify(movieDetails));
+      addMovie(movieDetails);
+      localStorage.setItem(
+        "allMovies",
+        JSON.stringify([...movies, movieDetails]) // to persist data for page refresh
+      );
+      closeModal();
+    }
+  };
+
   return (
     <div>
       <Modal
@@ -60,8 +78,11 @@ function AddMovieModal({ isModalOpen, closeModal, addMovie, movies }) {
             label="Name of Movie"
             size="small"
             style={inputFields}
+            required={true}
+            onError={error}
             onChange={(e) => handleChange(e, "name")}
           />
+          {error && <Typography style={{fontSize: "10px", color: 'red', margin:'0.2rem'}}>{error}</Typography>}
           <TextField
             variant="outlined"
             label="Cast"
@@ -76,7 +97,7 @@ function AddMovieModal({ isModalOpen, closeModal, addMovie, movies }) {
             size="small"
             style={inputFields}
             select
-            // value={currency}
+            value={movieDetails.genre}
             onChange={(e) => handleChange(e, "genre")}
           >
             {GENRES.map((option) => (
@@ -91,7 +112,7 @@ function AddMovieModal({ isModalOpen, closeModal, addMovie, movies }) {
             size="small"
             style={inputFields}
             select
-            // value={currency}
+            value={movieDetails.language}
             onChange={(e) => handleChange(e, "language")}
           >
             {LANGUAGES.map((option) => (
@@ -125,13 +146,7 @@ function AddMovieModal({ isModalOpen, closeModal, addMovie, movies }) {
               color: "#ffffff",
             }}
             onClick={() => {
-              localStorage.setItem("moive", JSON.stringify(movieDetails));
-              addMovie(movieDetails);
-              localStorage.setItem(
-                "allMovies",
-                JSON.stringify([...movies, movieDetails]) // to persist data for page refresh
-              );
-              closeModal();
+              handleSubmit();
             }}
           >
             Submit

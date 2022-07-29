@@ -29,10 +29,17 @@ function SearchResults() {
     );
   });
 
+  const toggleFavouriteMovie =(index, value)=>{
+    const updateMovie = [...movies]
+    updateMovie[index] ={...updateMovie[index], favourite: value};
+    setMovies([...updateMovie]);
+    localStorage.setItem('allMovies',JSON.stringify(updateMovie));  //  no needed simply to persist the data 
+  }
+
   return (
     <Layout>
       Search Results
-      {filteredMovies && <Movies movies={filteredMovies} />}
+      {filteredMovies && <Movies movies={filteredMovies} toogleFavMovie={toggleFavouriteMovie}/>}
       {filteredMovies.length === 0 && (
         <div>No Search Results Found</div>
       )}

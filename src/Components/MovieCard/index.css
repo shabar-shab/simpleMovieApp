@@ -1,0 +1,6 @@
+.movie-info{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 0.3rem 0 0.3rem;
+    flex-wrap: wrap;
+}
